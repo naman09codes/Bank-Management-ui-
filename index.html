@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank - Modern Banking Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container" id="loginPage">
+        <div class="login-box">
+            <div class="login-header">
+                <i class="fas fa-university"></i>
+                <h1>SecureBank</h1>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="display: none;">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <span>SecureBank</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active" data-section="dashboard">Dashboard</a></li>
+                <li><a href="#" data-section="accounts">Accounts</a></li>
+                <li><a href="#" data-section="transfer">Transfer</a></li>
+                <li><a href="#" data-section="transactions">Transactions</a></li>
+                <li><a href="#" data-section="profile">Profile</a></li>
+            </ul>
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i>
+                <span id="userName">John Doe</span>
+                <button id="logoutBtn" class="btn-logout">Logout</button>
+            </div>
+        </nav>
+
+        <main>
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <h2>Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="card balance">
+                        <h3>Total Balance</h3>
+                        <p class="amount">₹25,00,000.00</p>
+                        <div class="trend positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>2.5% from last month</span>
+                        </div>
+                    </div>
+                    <div class="card savings">
+                        <h3>Savings Account</h3>
+                        <p class="amount">₹15,00,000.00</p>
+                        <div class="trend positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>1.8% from last month</span>
+                        </div>
+                    </div>
+                    <div class="card checking">
+                        <h3>Checking Account</h3>
+                        <p class="amount">₹10,00,000.00</p>
+                        <div class="trend negative">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>0.5% from last month</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-transactions">
+                    <h3>Recent Transactions</h3>
+                    <div class="transaction-list">
+                        <!-- Transactions will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Accounts Section -->
+            <section id="accounts" class="section">
+                <h2>My Accounts</h2>
+                <div class="accounts-grid">
+                    <div class="account-card">
+                        <div class="account-header">
+                            <h3>Savings Account</h3>
+                            <span class="account-number">****1234</span>
+                        </div>
+                        <p class="balance">₹15,00,000.00</p>
+                        <div class="account-actions">
+                            <button class="btn-primary" onclick="viewAccountDetails('savings')">View Details</button>
+                            <button class="btn-secondary" onclick="transferMoney('savings')">Transfer</button>
+                        </div>
+                    </div>
+                    <div class="account-card">
+                        <div class="account-header">
+                            <h3>Checking Account</h3>
+                            <span class="account-number">****5678</span>
+                        </div>
+                        <p class="balance">₹10,00,000.00</p>
+                        <div class="account-actions">
+                            <button class="btn-primary" onclick="viewAccountDetails('checking')">View Details</button>
+                            <button class="btn-secondary" onclick="transferMoney('checking')">Transfer</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transfer Section -->
+            <section id="transfer" class="section">
+                <h2>Transfer Money</h2>
+                <div class="transfer-form">
+                    <div class="form-group">
+                        <label for="from-account">From Account</label>
+                        <select id="from-account">
+                            <option value="savings">Savings Account</option>
+                            <option value="checking">Checking Account</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="to-account">To Account</label>
+                        <select id="to-account">
+                            <option value="checking">Checking Account</option>
+                            <option value="savings">Savings Account</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount (₹)</label>
+                        <input type="number" id="amount" placeholder="Enter amount">
+                    </div>
+                    <button class="btn-primary" id="transfer-btn">Transfer Now</button>
+                </div>
+            </section>
+
+            <!-- Transactions Section -->
+            <section id="transactions" class="section">
+                <h2>Transaction History</h2>
+                <div class="transaction-filters">
+                    <select id="account-filter">
+                        <option value="all">All Accounts</option>
+                        <option value="savings">Savings Account</option>
+                        <option value="checking">Checking Account</option>
+                    </select>
+                    <input type="date" id="date-filter">
+                </div>
+                <div class="transaction-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Account</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transaction-list">
+                            <!-- Transactions will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="section">
+                <h2>My Profile</h2>
+                <div class="profile-container">
+                    <div class="profile-info">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" value="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" value="john.doe@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" value="+91 9876543210">
+                        </div>
+                        <button class="btn-primary" onclick="updateProfile()">Update Profile</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
